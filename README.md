@@ -15,6 +15,15 @@ Storm与Kafka框架集成，依赖https://github.com/wurstmeister/storm-kafka-0.
 
     git clone https://github.com/findhy/storm-kafka.git
 
+#### 修改KafkaProperties ####
+
+    final static String storm_bolt_topic = "wikipedia-from-storm-2";
+
+#### 创建Kafka topic接受Storm处理完的数据 ####
+
+    cd /home/hadoop/kafka_2.8.2-0.8.1
+    ./bin/kafka-topics.sh --create --zookeeper master:2181 --replication-factor 1 --partitions 1 --topic wikipedia-from-storm-2
+
 #### 打包 ####
 
     cd storm-kafka
@@ -23,15 +32,6 @@ Storm与Kafka框架集成，依赖https://github.com/wurstmeister/storm-kafka-0.
 #### 提交Kafka Producer ####
 
     java -classpath ./target/storm-kafka-0.1.0-SNAPSHOT-jar-with-dependencies.jar org.findhy.storm.kafka.producer.WikiKafkaProducer
-
-#### 创建Kafka topic接受Storm处理完的数据 ####
-
-    cd /home/hadoop/kafka_2.8.2-0.8.1
-    ./bin/kafka-topics.sh --create --zookeeper master:2181 --replication-factor 1 --partitions 1 --topic wikipedia-from-storm-2
-
-#### 修改KafkaProperties ####
-
-    final static String storm_bolt_topic = "wikipedia-from-storm-2";
 
 #### 提交Storm Topology ####
 
