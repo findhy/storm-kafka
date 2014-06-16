@@ -5,6 +5,8 @@ Storm与Kafka框架集成，依赖https://github.com/wurstmeister/storm-kafka-0.
  
 参考https://github.com/wurstmeister/storm-kafka-0.8-plus-test  
 
+详细介绍可以参考这里：http://findhy.com/blog/2014/06/16/storm-kafka-dev/  
+
 包括：
 
 - Kafka的Producer test，通过Websocket读取Wikipedia的实时修改数据
