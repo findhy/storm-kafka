@@ -29,10 +29,13 @@ Storm与Kafka框架集成，依赖https://github.com/wurstmeister/storm-kafka-0.
     cd /home/hadoop/kafka_2.8.2-0.8.1
     ./bin/kafka-topics.sh --create --zookeeper master:2181 --replication-factor 1 --partitions 1 --topic wikipedia-from-storm-2
 
+#### 修改KafkaProperties ####
+
+    final static String storm_bolt_topic = "wikipedia-from-storm-2";
+
 #### 提交Storm Topology ####
 
-    storm jar ./target/storm-kafka-0.1.0-SNAPSHOT-jar-with-dependencies.jar org.findhy.storm.topology.WikiStormTopology -c nimbus.host=10.0.1.254 storm-kafka-2 wikipedia-from-storm-2
-
+    storm jar ./target/storm-kafka-0.1.0-SNAPSHOT-jar-with-dependencies.jar org.findhy.storm.topology.WikiStormTopology -c nimbus.host=10.0.1.254 storm-kafka-2 
 
 #### 订阅Storm bolt发过来的数据 ####
 

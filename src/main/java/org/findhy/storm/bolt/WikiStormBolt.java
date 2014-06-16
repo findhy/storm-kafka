@@ -32,13 +32,6 @@ public class WikiStormBolt extends BaseRichBolt {
 	OutputCollector _collerctor;
 	Producer<String, String> producer;
 
-	//定义Storm处理完数据发送到哪个topic
-	String kafkaTopicName;
-	public WikiStormBolt(String kafkaTopicName) {
-		super();
-		this.kafkaTopicName = kafkaTopicName;
-	}
-
 	@Override
 	public void prepare(Map stormConf, TopologyContext context,
 			OutputCollector collector) {
@@ -59,7 +52,7 @@ public class WikiStormBolt extends BaseRichBolt {
 	public void execute(Tuple input) {
 		LOG.info("begin to execute tuple in bolt from WikiStormBolt");
 		Wikipedia wiki = JSON.parseObject(input.getValue(0).toString(),Wikipedia.class);
-		KeyedMessage<String, String> data = new KeyedMessage<String, String>(kafkaTopicName,JSON.toJSONString(wiki));
+		KeyedMessage<String, String> data = new KeyedMessage<String, String>(KafkaProperties.storm_bolt_topic,JSON.toJSONString(wiki));
 		producer.send(data);
 		_collerctor.ack(input);
 	}

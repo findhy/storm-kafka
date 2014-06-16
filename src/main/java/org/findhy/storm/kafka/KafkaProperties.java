@@ -7,7 +7,7 @@ public interface KafkaProperties {
 	final static String producer_url = "ws://wikimon.hatnote.com:9000";
 
 	final static String producer_topic = "wikipedia";
-	final static String storm_bolt_topic = "wikipedia-from-storm";
+	final static String storm_bolt_topic = "wikipedia-from-storm-3";
 
 	final static String kafkaServerURL = "master";
 	final static int kafkaServerPort = 9092;
