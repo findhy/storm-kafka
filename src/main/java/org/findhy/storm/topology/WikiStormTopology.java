@@ -24,12 +24,13 @@ public class WikiStormTopology {
 		
 		//获取topology名称
 		String topologyName = args[0];
+		String kafkaTopicName = args[1];
 		
 		SpoutConfig kafkaConfig = new SpoutConfig(new ZkHosts("master"), "wikipedia", "", "kafka-storm-spout");
         kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
 		TopologyBuilder builder = new TopologyBuilder();
 		builder.setSpout("wikispout", new KafkaSpout(kafkaConfig),1);
-		builder.setBolt("wikibolt", new WikiStormBolt(),1).shuffleGrouping("wikispout");
+		builder.setBolt("wikibolt", new WikiStormBolt(kafkaTopicName),1).shuffleGrouping("wikispout");
 		
 		Config conf = new Config();
 	    conf.setDebug(true);

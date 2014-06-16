@@ -149,12 +149,11 @@
                     <version>0.9.0</version>
                     <scope>provided</scope>
                 </dependency>
-                <!-- <dependency>
+                <dependency>
                     <groupId>org.slf4j</groupId>
                     <artifactId>log4j-over-slf4j</artifactId>
                     <version>1.6.6</version>
-                    <scope>provided</scope>
-                </dependency> -->
+                </dependency>
                 <dependency>
                     <groupId>org.clojure</groupId>
                     <artifactId>clojure</artifactId>
