@@ -27,6 +27,7 @@ Storm与Kafka框架集成，依赖https://github.com/wurstmeister/storm-kafka-0.
 #### 打包 ####
 
     cd storm-kafka
+	mvn clean
     mvn clean package -P cluster
 
 #### 提交Kafka Producer ####
