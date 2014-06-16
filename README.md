@@ -37,6 +37,6 @@ Storm与Kafka框架集成，依赖https://github.com/wurstmeister/storm-kafka-0.
 #### 订阅Storm bolt发过来的数据 ####
 
     cd /home/hadoop/kafka_2.8.2-0.8.1
-    ./bin/kafka-console-consumer.sh --zookeeper master:2181 --topic wikipedia-from-storm --from-beginning
+    ./bin/kafka-console-consumer.sh --zookeeper master:2181 --topic wikipedia-from-storm-2 --from-beginning
 
 可以看到提取出用户和文章标题的信息
