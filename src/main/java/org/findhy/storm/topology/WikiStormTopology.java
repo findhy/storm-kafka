@@ -21,7 +21,11 @@ public class WikiStormTopology {
 	public static final Logger LOG = LoggerFactory.getLogger(WikiStormTopology.class);
 	
 	public static void main(String[] args) throws AlreadyAliveException, InvalidTopologyException {
-		SpoutConfig kafkaConfig = new SpoutConfig(new ZkHosts("master"), "wikipedia", "", "kafka-storm");
+		
+		//获取topology名称
+		String topologyName = args[0];
+		
+		SpoutConfig kafkaConfig = new SpoutConfig(new ZkHosts("master"), "wikipedia", "", "kafka-storm-spout");
         kafkaConfig.scheme = new SchemeAsMultiScheme(new StringScheme());
 		TopologyBuilder builder = new TopologyBuilder();
 		builder.setSpout("wikispout", new KafkaSpout(kafkaConfig),1);
@@ -29,8 +33,8 @@ public class WikiStormTopology {
 		
 		Config conf = new Config();
 	    conf.setDebug(true);
-	    conf.setNumWorkers(3);
-	    StormSubmitter.submitTopology("kafka-storm", conf, builder.createTopology());
+	    conf.setNumWorkers(2);
+	    StormSubmitter.submitTopology(topologyName, conf, builder.createTopology());
 	}
 }
 

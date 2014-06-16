@@ -1,0 +1,5 @@
+#surefire
+#Mon Jun 16 14:07:26 CST 2014
+user.dir=E\:\\cy-bigdata-project\\storm-kafka
+localRepository=D\:\\maven\\repository
+basedir=E\:\\cy-bigdata-project\\storm-kafka

@@ -2,10 +2,9 @@ package org.findhy.storm.kafka.producer;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Date;
 import java.util.Properties;
-import java.util.Random;
 
+import org.findhy.storm.kafka.KafkaProperties;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.drafts.Draft;
 import org.java_websocket.drafts.Draft_10;
@@ -14,11 +13,9 @@ import org.java_websocket.handshake.ServerHandshake;
 import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
+
 /**
- * storm.kafka.producer.CyouKafkaProducer
- * java -classpath storm-kafka-0.8-plus-test-0.1.0-SNAPSHOT-jar-with-dependencies.jar storm.kafka.producer.CyouKafkaProducer
  * @author sunwei_oversea
- *
  */
 public class WikiKafkaProducer extends WebSocketClient{
 	
@@ -45,7 +42,8 @@ public class WikiKafkaProducer extends WebSocketClient{
 	}
 
 	public void sendData(String message){
-		KeyedMessage<String, String> data = new KeyedMessage<String, String>("wikipedia","wiki",message);
+		System.out.println("received: " + message);
+		KeyedMessage<String, String> data = new KeyedMessage<String, String>(KafkaProperties.producer_topic,"wiki",message);
 		producer.send(data);
 	}
 	
@@ -69,33 +67,18 @@ public class WikiKafkaProducer extends WebSocketClient{
 	}
 
 	public static void main(String[] args) throws URISyntaxException {
+		
 		Properties props = new Properties();
-		props.put("metadata.broker.list", "master:9092");
+		props.put("metadata.broker.list", KafkaProperties.broker_list);
 		props.put("serializer.class", "kafka.serializer.StringEncoder");
-		props.put("partitioner.class", "org.findhy.storm.kafka.partitioner.WikiPartitioner");
+		props.put("partitioner.class", KafkaProperties.partitioner_class);
 		props.put("request.required.acks", "1");
 		ProducerConfig config = new ProducerConfig(props);
 		
 		producer = new Producer<String,String>(config);
 		
-		WikiKafkaProducer c = new WikiKafkaProducer(new URI("ws://wikimon.hatnote.com:9000"),new Draft_10()); 
+		WikiKafkaProducer c = new WikiKafkaProducer(new URI(KafkaProperties.producer_url),new Draft_10()); 
 		c.connect();
 	}
-	
-	/*public static void main(String[] args){
-		Properties props = new Properties();
-		props.put("metadata.broker.list", "master:9092");
-		props.put("serializer.class", "kafka.serializer.StringEncoder");
-		//props.put("partitioner.class", "example.producer.SimplePartitioner");
-		props.put("request.required.acks", "1");
-		ProducerConfig config = new ProducerConfig(props);
-		
-		Producer<String,String> producer = new Producer<String,String>(config);
-		
-		while(true){
-			KeyedMessage<String, String> data = new KeyedMessage<String, String>("Wikipedia","1","2");
-			producer.send((Seq<KeyedMessage<String, String>>) data);
-		}
-	}*/
 
 }

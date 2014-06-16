@@ -7,8 +7,12 @@ import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
 
+import org.findhy.storm.kafka.KafkaProperties;
+import org.findhy.storm.mode.Wikipedia;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import com.alibaba.fastjson.JSON;
 
 import backtype.storm.task.OutputCollector;
 import backtype.storm.task.TopologyContext;
@@ -35,9 +39,9 @@ public class WikiStormBolt extends BaseRichBolt {
 		this._collerctor = collector;
 		
 		Properties props = new Properties();
-		props.put("metadata.broker.list", "master:9092");
+		props.put("metadata.broker.list", KafkaProperties.broker_list);
 		props.put("serializer.class", "kafka.serializer.StringEncoder");
-		props.put("partitioner.class", "org.findhy.storm.kafka.partitioner.WikiPartitioner");
+		props.put("partitioner.class", KafkaProperties.partitioner_class);
 		props.put("request.required.acks", "1");
 		ProducerConfig config = new ProducerConfig(props);
 
@@ -46,8 +50,9 @@ public class WikiStormBolt extends BaseRichBolt {
 
 	@Override
 	public void execute(Tuple input) {
-		LOG.info("begin to execute tuple in bolt from CyouSendToKafkaBolt");
-		KeyedMessage<String, String> data = new KeyedMessage<String, String>("wikipedia-from-storm",input.getValue(0).toString());
+		LOG.info("begin to execute tuple in bolt from WikiStormBolt");
+		Wikipedia wiki = JSON.parseObject(input.getValue(0).toString(),Wikipedia.class);
+		KeyedMessage<String, String> data = new KeyedMessage<String, String>(KafkaProperties.storm_bolt_topic,JSON.toJSONString(wiki));
 		producer.send(data);
 		_collerctor.ack(input);
 	}
