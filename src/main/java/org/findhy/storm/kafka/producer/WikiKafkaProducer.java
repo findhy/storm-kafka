@@ -13,6 +13,7 @@ import org.java_websocket.handshake.ServerHandshake;
 import kafka.javaapi.producer.Producer;
 import kafka.producer.KeyedMessage;
 import kafka.producer.ProducerConfig;
+import kafka.server.KafkaConfig;
 
 /**
  * @author sunwei_oversea
@@ -70,11 +71,10 @@ public class WikiKafkaProducer extends WebSocketClient{
 		
 		Properties props = new Properties();
 		props.put("metadata.broker.list", KafkaProperties.broker_list);
-		props.put("serializer.class", "kafka.serializer.StringEncoder");
-		props.put("partitioner.class", KafkaProperties.partitioner_class);
-		props.put("request.required.acks", "1");
+		//props.put("serializer.class", "kafka.serializer.StringEncoder");
+		//props.put("partitioner.class", KafkaProperties.partitioner_class);
+		//props.put("request.required.acks", "1");
 		ProducerConfig config = new ProducerConfig(props);
-		
 		producer = new Producer<String,String>(config);
 		
 		WikiKafkaProducer c = new WikiKafkaProducer(new URI(KafkaProperties.producer_url),new Draft_10()); 
