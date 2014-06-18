@@ -21,7 +21,7 @@ import org.findhy.storm.kafka.KafkaProperties;
 /**
  * https://cwiki.apache.org/confluence/display/KAFKA/Consumer+Group+Example
  * https://cwiki.apache.org/confluence/display/KAFKA/0.8.0+SimpleConsumer+Example
- * 
+ * java -classpath ./target/storm-kafka-0.1.0-SNAPSHOT-jar-with-dependencies.jar org.findhy.storm.kafka.consumer.WikiKafkaConsumer wikipedia-from-storm-3
  * @author sunwei_oversea
  */
 public class WikiKafkaConsumer {
