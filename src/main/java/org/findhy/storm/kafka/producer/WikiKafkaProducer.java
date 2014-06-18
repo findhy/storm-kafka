@@ -43,7 +43,7 @@ public class WikiKafkaProducer extends WebSocketClient{
 	}
 
 	public void sendData(String message){
-		System.out.println("received: " + message);
+		//System.out.println("received: " + message);
 		KeyedMessage<String, String> data = new KeyedMessage<String, String>(KafkaProperties.producer_topic,"wiki",message);
 		producer.send(data);
 	}
@@ -71,9 +71,9 @@ public class WikiKafkaProducer extends WebSocketClient{
 		
 		Properties props = new Properties();
 		props.put("metadata.broker.list", KafkaProperties.broker_list);
-		//props.put("serializer.class", "kafka.serializer.StringEncoder");
-		//props.put("partitioner.class", KafkaProperties.partitioner_class);
-		//props.put("request.required.acks", "1");
+		props.put("serializer.class", "kafka.serializer.StringEncoder");
+		props.put("partitioner.class", KafkaProperties.partitioner_class);
+		props.put("request.required.acks", "1");
 		ProducerConfig config = new ProducerConfig(props);
 		producer = new Producer<String,String>(config);
 		
