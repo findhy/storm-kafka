@@ -5,7 +5,7 @@ Storm与Kafka集成测试框架，依赖这个库：https://github.com/wurstmeis
  
 部分参考：https://github.com/wurstmeister/storm-kafka-0.8-plus-test  
 
-框架详细介绍可以看这里：http://findhy.com/blog/2014/06/16/storm-kafka-dev/  
+框架详细介绍可以看这里：http://blog.findhy.com/blog/2014/06/16/storm-kafka-dev/  
 
 包括：
 
